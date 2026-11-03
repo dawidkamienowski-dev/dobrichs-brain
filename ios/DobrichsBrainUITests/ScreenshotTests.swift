@@ -36,6 +36,9 @@ final class ScreenshotTests: XCTestCase {
 
         app.tabBars.buttons["Więcej"].tap()
         snap("8-wiecej")
+        app.buttons["Podgląd widżetów"].tap()
+        snap("9-widzety")
+        app.navigationBars.buttons.firstMatch.tap()
 
         app.tabBars.buttons["Notatki"].tap()
         let draft = app.descendants(matching: .any).matching(identifier: "noteDraft").firstMatch
@@ -44,7 +47,12 @@ final class ScreenshotTests: XCTestCase {
         draft.typeText("Notatka z testu #ci")
         app.buttons["noteSave"].tap()
         XCTAssertTrue(app.staticTexts["Notatka z testu #ci"].waitForExistence(timeout: 5))
-        snap("9-nowa-notatka")
+        snap("10-nowa-notatka")
+
+        // Live Activity of the running demo shift in the Dynamic Island
+        XCUIDevice.shared.press(.home)
+        sleep(2)
+        snap("11-dynamic-island")
     }
 
     private func snap(_ name: String) {

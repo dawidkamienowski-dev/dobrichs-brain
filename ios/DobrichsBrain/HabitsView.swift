@@ -1,77 +1,7 @@
 import SwiftData
 import SwiftUI
 import UserNotifications
-
-@Model
-final class Habit {
-    var name: String
-    var icon: String
-    var order: Int
-    var createdAt: Date
-    /// days the habit was done, as "yyyy-MM-dd" in local time
-    var doneDays: [String]
-    /// daily reminder, minutes after midnight
-    var reminderMinutes: Int?
-    var notificationID: String
-
-    init(name: String, icon: String, order: Int, reminderMinutes: Int? = nil, doneDays: [String] = []) {
-        self.name = name
-        self.icon = icon
-        self.order = order
-        self.createdAt = .now
-        self.doneDays = doneDays
-        self.reminderMinutes = reminderMinutes
-        self.notificationID = UUID().uuidString
-    }
-
-    static func key(_ day: Date) -> String { localDay(day, "yyyy-MM-dd") }
-
-    func isDone(_ day: Date) -> Bool { doneDays.contains(Self.key(day)) }
-
-    func toggle(_ day: Date) {
-        var days = doneDays
-        let k = Self.key(day)
-        if let i = days.firstIndex(of: k) { days.remove(at: i) } else { days.append(k) }
-        doneDays = days
-    }
-
-    /// consecutive days up to today (or yesterday, if today isn't ticked yet)
-    var currentStreak: Int {
-        let cal = Calendar.current
-        var day = cal.startOfDay(for: .now)
-        if !isDone(day) { day = cal.date(byAdding: .day, value: -1, to: day)! }
-        var n = 0
-        while isDone(day) {
-            n += 1
-            day = cal.date(byAdding: .day, value: -1, to: day)!
-        }
-        return n
-    }
-
-    var bestStreak: Int {
-        let f = DateFormatter()
-        f.locale = Locale(identifier: "en_US_POSIX")
-        f.dateFormat = "yyyy-MM-dd"
-        let days = Set(doneDays).compactMap { f.date(from: $0) }.sorted()
-        var best = 0, run = 0
-        var prev: Date?
-        for d in days {
-            if let p = prev, Calendar.current.dateComponents([.day], from: p, to: d).day == 1 { run += 1 } else { run = 1 }
-            best = max(best, run)
-            prev = d
-        }
-        return best
-    }
-
-    func rate(lastDays: Int) -> Double {
-        let cal = Calendar.current
-        let today = cal.startOfDay(for: .now)
-        let done = (0..<lastDays).filter { isDone(cal.date(byAdding: .day, value: -$0, to: today)!) }.count
-        return Double(done) / Double(lastDays)
-    }
-}
-
-func daysText(_ n: Int) -> String { n == 1 ? "1 dzień" : "\(n) dni" }
+import WidgetKit
 
 enum HabitReminders {
     static func schedule(_ habit: Habit) {
@@ -99,54 +29,18 @@ enum HabitReminders {
     }
 }
 
-@Model
-final class WaterDay {
-    /// "yyyy-MM-dd", local time
-    var day: String
-    var ml: Int
-
-    init(day: String, ml: Int = 0) {
-        self.day = day
-        self.ml = ml
-    }
-}
-
 // MARK: - list
 
 struct HabitsView: View {
     @Environment(\.modelContext) private var context
     @Query(sort: \Habit.order) private var habits: [Habit]
-    @Query private var water: [WaterDay]
     @Query private var tasks: [TaskItem]
-    @AppStorage("waterGoal") private var waterGoal: Int = 2000
     @State private var showAdd = false
 
-    /// each part 0...1; the day bar is their average
-    private func dayParts(waterML: Int) -> [DayPart] {
-        var parts: [DayPart] = []
-        if !habits.isEmpty {
-            let done = habits.filter { $0.isDone(.now) }.count
-            parts.append(DayPart(name: "Nawyki", detail: "\(done)/\(habits.count)", value: Double(done) / Double(habits.count)))
-        }
-        if waterGoal > 0 {
-            parts.append(DayPart(name: "Woda", detail: "\(waterML) ml", value: min(1, Double(waterML) / Double(waterGoal))))
-        }
-        let today = tasks.filter { $0.due.map { Calendar.current.isDateInToday($0) } ?? false }
-        if !today.isEmpty {
-            let done = today.filter(\.done).count
-            parts.append(DayPart(name: "Zadania", detail: "\(done)/\(today.count)", value: Double(done) / Double(today.count)))
-        }
-        return parts
-    }
-
     var body: some View {
-        let todayKey = Habit.key(.now)
-        let waterML = water.first { $0.day == todayKey }?.ml ?? 0
-
         NavigationStack {
             List {
-                Section { DaySummaryCard(parts: dayParts(waterML: waterML)) }
-                Section { WaterCard(ml: waterML, goal: waterGoal) }
+                DaySections(habits: habits, tasks: tasks)
 
                 Section {
                     ForEach(habits) { habit in
@@ -180,44 +74,44 @@ struct HabitsView: View {
     }
 }
 
-struct DayPart {
-    let name: String
-    let detail: String
-    let value: Double
+/// "Twój dzień" + water card. Water lives in the shared app-group defaults so the widget's +250 ml button can change it.
+private struct DaySections: View {
+    let habits: [Habit]
+    let tasks: [TaskItem]
+    @AppStorage private var waterML: Int
+    @AppStorage("waterGoal", store: SharedDefaults.store) private var waterGoal: Int = 2000
+
+    init(habits: [Habit], tasks: [TaskItem]) {
+        self.habits = habits
+        self.tasks = tasks
+        _waterML = AppStorage(wrappedValue: 0, SharedDefaults.waterKey(), store: SharedDefaults.store)
+    }
+
+    var body: some View {
+        let summary = DaySummary.make(habits: habits, tasks: tasks, waterML: waterML, waterGoal: waterGoal)
+        Section { DaySummaryCard(summary: summary) }
+        Section { WaterCard(ml: $waterML, goal: waterGoal) }
+    }
 }
 
 private struct DaySummaryCard: View {
-    let parts: [DayPart]
-
-    private var total: Double {
-        parts.isEmpty ? 0 : parts.map(\.value).reduce(0, +) / Double(parts.count)
-    }
-
-    private var message: String {
-        switch total {
-        case 1...: return "Perfekcyjny dzień 🏆"
-        case 0.75...: return "Prawie wszystko, dociśnij końcówkę 💪"
-        case 0.4...: return "Dobrze idzie, jesteś w połowie"
-        case 0.01...: return "Dobry początek, lecimy dalej"
-        default: return "Dzień dopiero się zaczyna ☀️"
-        }
-    }
+    let summary: DaySummary
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .firstTextBaseline) {
                 Text("Twój dzień").font(.headline)
                 Spacer()
-                Text("\(Int((total * 100).rounded()))%")
+                Text("\(summary.percent)%")
                     .font(.system(size: 34, weight: .bold, design: .rounded))
                     .monospacedDigit()
             }
-            ProgressView(value: total)
-                .tint(total >= 1 ? Color.green : Color.accentColor)
+            ProgressView(value: summary.total)
+                .tint(summary.total >= 1 ? Color.green : Color.accentColor)
                 .scaleEffect(x: 1, y: 2.5, anchor: .center)
                 .padding(.vertical, 4)
             HStack(alignment: .top) {
-                ForEach(parts, id: \.name) { p in
+                ForEach(summary.parts, id: \.name) { p in
                     VStack(alignment: .leading, spacing: 2) {
                         Text(p.name).font(.caption).foregroundStyle(.secondary)
                         Text(p.detail).font(.caption.bold()).monospacedDigit()
@@ -225,16 +119,15 @@ private struct DaySummaryCard: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
-            Text(message).font(.caption).foregroundStyle(.secondary)
+            Text(summary.message).font(.caption).foregroundStyle(.secondary)
         }
         .padding(.vertical, 4)
     }
 }
 
 private struct WaterCard: View {
-    let ml: Int
+    @Binding var ml: Int
     let goal: Int
-    @Environment(\.modelContext) private var context
 
     private var maxML: Int { max(goal * 3 / 2, 1000) }
 
@@ -245,13 +138,18 @@ private struct WaterCard: View {
                 Spacer()
                 Text("\(ml) / \(goal) ml").bold().monospacedDigit()
             }
-            Slider(value: Binding(get: { Double(ml) }, set: { set(Int($0)) }),
-                   in: 0...Double(maxML), step: 50)
-                .tint(.blue)
-                .accessibilityIdentifier("waterSlider")
+            Slider(value: Binding(get: { Double(ml) }, set: { ml = max(0, min(Int($0), maxML)) }),
+                   in: 0...Double(maxML), step: 50) { editing in
+                if !editing { WidgetCenter.shared.reloadAllTimelines() }
+            }
+            .tint(.blue)
+            .accessibilityIdentifier("waterSlider")
             HStack(spacing: 8) {
                 ForEach([250, 500], id: \.self) { amount in
-                    Button { set(ml + amount) } label: {
+                    Button {
+                        ml = min(ml + amount, maxML)
+                        WidgetCenter.shared.reloadAllTimelines()
+                    } label: {
                         Text("+\(amount) ml")
                             .font(.subheadline.bold())
                             .padding(.horizontal, 12)
@@ -268,21 +166,11 @@ private struct WaterCard: View {
         }
         .padding(.vertical, 4)
     }
-
-    private func set(_ value: Int) {
-        let key = Habit.key(.now)
-        let clamped = max(0, min(value, maxML))
-        let descriptor = FetchDescriptor<WaterDay>(predicate: #Predicate { $0.day == key })
-        if let entry = try? context.fetch(descriptor).first {
-            entry.ml = clamped
-        } else {
-            context.insert(WaterDay(day: key, ml: clamped))
-        }
-    }
 }
 
 private struct HabitRow: View {
     let habit: Habit
+    @Environment(\.modelContext) private var context
 
     private var lastWeek: [Date] {
         let today = Calendar.current.startOfDay(for: .now)
@@ -305,11 +193,14 @@ private struct HabitRow: View {
                     }
                 }
                 if streak > 0 {
-                    Text("🔥 \(daysText(streak)) z rzędu").font(.caption).foregroundStyle(.orange)
+                    Text("🔥 \(daysText(streak)) z rzędu").font(.caption).foregroundStyle(.orange).lineLimit(1).fixedSize()
                 }
             }
             Spacer()
-            Button { habit.toggle(.now) } label: {
+            Button {
+                habit.toggle(.now)
+                refreshWidgets(context)
+            } label: {
                 Image(systemName: done ? "checkmark.circle.fill" : "circle")
                     .font(.system(size: 34))
                     .foregroundStyle(done ? Color.green : Color.secondary)

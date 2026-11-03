@@ -1,6 +1,8 @@
+import ActivityKit
 import Foundation
 import SwiftData
 import UserNotifications
+import WidgetKit
 
 // MARK: - formatting
 
@@ -17,12 +19,25 @@ func durationText(_ seconds: TimeInterval) -> String {
     return "\(m / 60)h \(String(format: "%02d", m % 60))m"
 }
 
-/// Formats a date in the device's time zone (ISO8601FormatStyle would use GMT and shift the day).
-func localDay(_ date: Date, _ pattern: String) -> String {
-    let f = DateFormatter()
-    f.locale = Locale(identifier: "en_US_POSIX")
-    f.dateFormat = pattern
-    return f.string(from: date)
+// MARK: - widgets
+
+/// Saves pending changes so the widget (separate process) reads fresh data, then reloads it.
+func refreshWidgets(_ context: ModelContext) {
+    try? context.save()
+    WidgetCenter.shared.reloadAllTimelines()
+}
+
+enum ShiftActivity {
+    static func start(_ start: Date) {
+        guard ActivityAuthorizationInfo().areActivitiesEnabled, Activity<ShiftAttributes>.activities.isEmpty else { return }
+        _ = try? Activity.request(attributes: ShiftAttributes(start: start), content: .init(state: .init(), staleDate: nil))
+    }
+
+    static func end() {
+        for activity in Activity<ShiftAttributes>.activities {
+            Task { await activity.end(nil, dismissalPolicy: .immediate) }
+        }
+    }
 }
 
 // MARK: - local notifications
@@ -150,8 +165,8 @@ enum DemoData {
             context.insert(Habit(name: h.0, icon: h.1, order: i, reminderMinutes: i == 1 ? 9 * 60 : nil, doneDays: days))
         }
 
-        context.insert(WaterDay(day: Habit.key(now), ml: 1250))
-        UserDefaults.standard.set(2000, forKey: "waterGoal")
+        SharedDefaults.setWater(1250)
+        SharedDefaults.store.set(2000, forKey: "waterGoal")
 
         UserDefaults.standard.set(168.0, forKey: "monthlyTarget")
         UserDefaults.standard.set(32.5, forKey: "hourlyRate")

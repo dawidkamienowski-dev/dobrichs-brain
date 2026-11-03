@@ -117,6 +117,7 @@ struct WorkView: View {
         } else {
             Button {
                 shiftStart = Date.now.timeIntervalSince1970
+                ShiftActivity.start(.now)
             } label: {
                 Label("Zaczynam pracę", systemImage: "play.fill").frame(maxWidth: .infinity)
             }
@@ -130,6 +131,7 @@ struct WorkView: View {
         let start = Date(timeIntervalSince1970: shiftStart)
         context.insert(WorkEntry(day: start, start: start, end: .now, breakMinutes: Int(breakText) ?? 0))
         shiftStart = 0
+        ShiftActivity.end()
     }
 
     private func shiftMonth(_ delta: Int) {

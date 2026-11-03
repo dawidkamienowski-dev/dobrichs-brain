@@ -39,7 +39,7 @@ jobs:
               ver = (int(m.group(1)), int(m.group(2)))
               for d in items:
                   if re.fullmatch(r'iPhone \d+( Pro)?', d['name']):
-                      key = (ver, 'Pro' not in d['name'])
+                      key = (ver, 'Pro' in d['name'])  # Pro = Dynamic Island
                       if best is None or key > best[0]:
                           best = (key, d['udid'], d['name'], ver)
           print(best[1])
@@ -86,7 +86,7 @@ jobs:
           rm -rf ios/screenshots && mkdir -p ios/screenshots && cp shots/*.png ios/screenshots/
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add ios/screenshots ios/DobrichsBrain.xcodeproj
+          git add ios
           git diff --cached --quiet && exit 0
           git commit -m "iOS: screenshots + Xcode project"
           git pull --rebase -q origin main

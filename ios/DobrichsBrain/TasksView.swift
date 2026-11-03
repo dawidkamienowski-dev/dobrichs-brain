@@ -73,6 +73,7 @@ struct TasksView: View {
         task.done.toggle()
         task.doneAt = task.done ? .now : nil
         if task.done { Reminders.cancel(task) } else { Reminders.schedule(task) }
+        refreshWidgets(context)
     }
 
     private func delete(_ task: TaskItem) {

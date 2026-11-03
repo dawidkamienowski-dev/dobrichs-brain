@@ -1,6 +1,7 @@
 import SwiftData
 import SwiftUI
 import UserNotifications
+import WidgetKit
 
 @main
 struct DobrichsBrainApp: App {
@@ -10,9 +11,8 @@ struct DobrichsBrainApp: App {
     init() {
         // "-demo" (used by UI tests for screenshots): in-memory store with sample data
         let demo = ProcessInfo.processInfo.arguments.contains("-demo")
-        let config = ModelConfiguration(isStoredInMemoryOnly: demo)
         do {
-            container = try ModelContainer(for: Note.self, TaskItem.self, WorkEntry.self, Habit.self, WaterDay.self, configurations: config)
+            container = try makeContainer(inMemory: demo)
         } catch {
             fatalError("Nie udało się otworzyć bazy: \(error)")
         }
@@ -44,6 +44,9 @@ final class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCent
 
 struct RootView: View {
     @Query(filter: #Predicate<TaskItem> { $0.done == false }) private var openTasks: [TaskItem]
+    @Environment(\.modelContext) private var context
+    @Environment(\.scenePhase) private var scenePhase
+    @AppStorage("shiftStart") private var shiftStart: Double = 0
 
     private var urgentCount: Int {
         let endOfToday = Calendar.current.date(byAdding: .day, value: 1, to: Calendar.current.startOfDay(for: .now))!
@@ -63,6 +66,13 @@ struct RootView: View {
                 .tabItem { Label("Praca", systemImage: "clock") }
             SettingsView()
                 .tabItem { Label("Więcej", systemImage: "gearshape") }
+        }
+        .onAppear {
+            // bring back the Live Activity if a shift is running (e.g. after the phone restarted)
+            if shiftStart > 0 { ShiftActivity.start(Date(timeIntervalSince1970: shiftStart)) }
+        }
+        .onChange(of: scenePhase) {
+            if scenePhase != .active { refreshWidgets(context) }
         }
     }
 }
