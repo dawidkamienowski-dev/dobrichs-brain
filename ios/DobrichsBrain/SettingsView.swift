@@ -17,9 +17,10 @@ struct SettingsView: View {
                 Section("Praca") {
                     LabeledContent {
                         TextField("168", value: $target, format: .number)
+                            .frame(maxWidth: 70)
                             .keyboardType(.decimalPad)
                             .multilineTextAlignment(.trailing)
-                    } label: { badgeLabel("Cel godzin / miesiąc", "target", Theme.work) }
+                    } label: { badgeLabel("Cel godzin w miesiącu", "target", Theme.work) }
                     LabeledContent {
                         TextField("0", value: $rate, format: .number)
                             .keyboardType(.decimalPad)
@@ -30,9 +31,10 @@ struct SettingsView: View {
                 Section("Nawyki") {
                     LabeledContent {
                         TextField("2000", value: $waterGoal, format: .number)
+                            .frame(maxWidth: 80)
                             .keyboardType(.numberPad)
                             .multilineTextAlignment(.trailing)
-                    } label: { badgeLabel("Cel wody (ml / dzień)", "drop.fill", Theme.water) }
+                    } label: { badgeLabel("Cel wody (ml)", "drop.fill", Theme.water) }
                 }
 
                 Section {
