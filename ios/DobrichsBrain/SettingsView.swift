@@ -8,12 +8,29 @@ struct SettingsView: View {
     @AppStorage("monthlyTarget") private var target: Double = 168
     @AppStorage("hourlyRate") private var rate: Double = 0
     @AppStorage("waterGoal", store: SharedDefaults.store) private var waterGoal: Int = 2000
+    @AppStorage("appearance") private var appearance = "system"
     @State private var importing = false
     @State private var message: String?
 
     var body: some View {
         NavigationStack {
             Form {
+                Section {
+                    Picker(selection: $appearance) {
+                        Text("Systemowy").tag("system")
+                        Text("Jasny").tag("light")
+                        Text("Ciemny").tag("dark")
+                    } label: {
+                        badgeLabel("Motyw", "circle.lefthalf.filled", .indigo)
+                    }
+                    .pickerStyle(.segmented)
+                    .accessibilityIdentifier("appearancePicker")
+                } header: {
+                    Text("Wygląd")
+                } footer: {
+                    Text("Systemowy zmienia się razem z ustawieniem iPhone'a.")
+                }
+
                 Section("Praca") {
                     LabeledContent {
                         TextField("168", value: $target, format: .number)

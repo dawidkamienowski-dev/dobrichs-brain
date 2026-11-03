@@ -47,6 +47,16 @@ struct RootView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.scenePhase) private var scenePhase
     @AppStorage("shiftStart") private var shiftStart: Double = 0
+    /// "system" (default), "light" or "dark"
+    @AppStorage("appearance") private var appearance = "system"
+
+    private var colorScheme: ColorScheme? {
+        switch appearance {
+        case "light": return .light
+        case "dark": return .dark
+        default: return nil
+        }
+    }
 
     private var urgentCount: Int {
         let endOfToday = Calendar.current.date(byAdding: .day, value: 1, to: Calendar.current.startOfDay(for: .now))!
@@ -68,6 +78,7 @@ struct RootView: View {
                 .tabItem { Label("Więcej", systemImage: "gearshape") }
         }
         .fontDesign(.rounded)
+        .preferredColorScheme(colorScheme)
         .minimizingTabBar()
         .onAppear {
             // bring back the Live Activity if a shift is running (e.g. after the phone restarted)

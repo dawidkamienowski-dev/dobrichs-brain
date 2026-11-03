@@ -55,6 +55,19 @@ final class ScreenshotTests: XCTestCase {
         snap("11-dynamic-island")
     }
 
+    /// Same app in dark mode (as if chosen in Więcej → Motyw).
+    func testDarkMode() {
+        app.terminate()
+        app.launchArguments += ["-appearance", "dark"]
+        app.launch()
+        app.tabBars.buttons["Nawyki"].tap()
+        snap("12-ciemny-nawyki")
+        app.tabBars.buttons["Praca"].tap()
+        snap("13-ciemny-praca")
+        app.tabBars.buttons["Więcej"].tap()
+        snap("14-ciemny-wiecej")
+    }
+
     private func snap(_ name: String) {
         sleep(1) // let animations settle
         let shot = XCUIScreen.main.screenshot()
