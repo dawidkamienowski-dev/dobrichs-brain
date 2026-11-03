@@ -99,33 +99,54 @@ enum HabitReminders {
     }
 }
 
+@Model
+final class WaterDay {
+    /// "yyyy-MM-dd", local time
+    var day: String
+    var ml: Int
+
+    init(day: String, ml: Int = 0) {
+        self.day = day
+        self.ml = ml
+    }
+}
+
 // MARK: - list
 
 struct HabitsView: View {
     @Environment(\.modelContext) private var context
     @Query(sort: \Habit.order) private var habits: [Habit]
+    @Query private var water: [WaterDay]
+    @Query private var tasks: [TaskItem]
+    @AppStorage("waterGoal") private var waterGoal: Int = 2000
     @State private var showAdd = false
 
+    /// each part 0...1; the day bar is their average
+    private func dayParts(waterML: Int) -> [DayPart] {
+        var parts: [DayPart] = []
+        if !habits.isEmpty {
+            let done = habits.filter { $0.isDone(.now) }.count
+            parts.append(DayPart(name: "Nawyki", detail: "\(done)/\(habits.count)", value: Double(done) / Double(habits.count)))
+        }
+        if waterGoal > 0 {
+            parts.append(DayPart(name: "Woda", detail: "\(waterML) ml", value: min(1, Double(waterML) / Double(waterGoal))))
+        }
+        let today = tasks.filter { $0.due.map { Calendar.current.isDateInToday($0) } ?? false }
+        if !today.isEmpty {
+            let done = today.filter(\.done).count
+            parts.append(DayPart(name: "Zadania", detail: "\(done)/\(today.count)", value: Double(done) / Double(today.count)))
+        }
+        return parts
+    }
+
     var body: some View {
-        let doneToday = habits.filter { $0.isDone(.now) }.count
+        let todayKey = Habit.key(.now)
+        let waterML = water.first { $0.day == todayKey }?.ml ?? 0
 
         NavigationStack {
             List {
-                if !habits.isEmpty {
-                    Section {
-                        VStack(alignment: .leading, spacing: 6) {
-                            Text("Dziś").font(.caption).foregroundStyle(.secondary)
-                            Text("\(doneToday) z \(habits.count)")
-                                .font(.system(size: 34, weight: .bold, design: .rounded))
-                            ProgressView(value: Double(doneToday), total: Double(habits.count))
-                                .tint(doneToday == habits.count ? Color.green : Color.accentColor)
-                            if doneToday == habits.count {
-                                Text("Wszystko zrobione, dobra robota 💪").font(.caption).foregroundStyle(.green)
-                            }
-                        }
-                        .padding(.vertical, 4)
-                    }
-                }
+                Section { DaySummaryCard(parts: dayParts(waterML: waterML)) }
+                Section { WaterCard(ml: waterML, goal: waterGoal) }
 
                 Section {
                     ForEach(habits) { habit in
@@ -155,6 +176,107 @@ struct HabitsView: View {
             .sheet(isPresented: $showAdd) {
                 AddHabitView(nextOrder: (habits.map(\.order).max() ?? -1) + 1)
             }
+        }
+    }
+}
+
+struct DayPart {
+    let name: String
+    let detail: String
+    let value: Double
+}
+
+private struct DaySummaryCard: View {
+    let parts: [DayPart]
+
+    private var total: Double {
+        parts.isEmpty ? 0 : parts.map(\.value).reduce(0, +) / Double(parts.count)
+    }
+
+    private var message: String {
+        switch total {
+        case 1...: return "Perfekcyjny dzień 🏆"
+        case 0.75...: return "Prawie wszystko, dociśnij końcówkę 💪"
+        case 0.4...: return "Dobrze idzie, jesteś w połowie"
+        case 0.01...: return "Dobry początek, lecimy dalej"
+        default: return "Dzień dopiero się zaczyna ☀️"
+        }
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(alignment: .firstTextBaseline) {
+                Text("Twój dzień").font(.headline)
+                Spacer()
+                Text("\(Int((total * 100).rounded()))%")
+                    .font(.system(size: 34, weight: .bold, design: .rounded))
+                    .monospacedDigit()
+            }
+            ProgressView(value: total)
+                .tint(total >= 1 ? Color.green : Color.accentColor)
+                .scaleEffect(x: 1, y: 2.5, anchor: .center)
+                .padding(.vertical, 4)
+            HStack(alignment: .top) {
+                ForEach(parts, id: \.name) { p in
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(p.name).font(.caption).foregroundStyle(.secondary)
+                        Text(p.detail).font(.caption.bold()).monospacedDigit()
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
+            }
+            Text(message).font(.caption).foregroundStyle(.secondary)
+        }
+        .padding(.vertical, 4)
+    }
+}
+
+private struct WaterCard: View {
+    let ml: Int
+    let goal: Int
+    @Environment(\.modelContext) private var context
+
+    private var maxML: Int { max(goal * 3 / 2, 1000) }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack {
+                Label("Woda", systemImage: "drop.fill").font(.headline).foregroundStyle(.blue)
+                Spacer()
+                Text("\(ml) / \(goal) ml").bold().monospacedDigit()
+            }
+            Slider(value: Binding(get: { Double(ml) }, set: { set(Int($0)) }),
+                   in: 0...Double(maxML), step: 50)
+                .tint(.blue)
+                .accessibilityIdentifier("waterSlider")
+            HStack(spacing: 8) {
+                ForEach([250, 500], id: \.self) { amount in
+                    Button { set(ml + amount) } label: {
+                        Text("+\(amount) ml")
+                            .font(.subheadline.bold())
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(Capsule().fill(Color.blue.opacity(0.15)))
+                    }
+                    .buttonStyle(.borderless)
+                }
+                Spacer()
+                if goal > 0 && ml >= goal {
+                    Text("Cel osiągnięty 💧").font(.caption).foregroundStyle(.blue)
+                }
+            }
+        }
+        .padding(.vertical, 4)
+    }
+
+    private func set(_ value: Int) {
+        let key = Habit.key(.now)
+        let clamped = max(0, min(value, maxML))
+        let descriptor = FetchDescriptor<WaterDay>(predicate: #Predicate { $0.day == key })
+        if let entry = try? context.fetch(descriptor).first {
+            entry.ml = clamped
+        } else {
+            context.insert(WaterDay(day: key, ml: clamped))
         }
     }
 }

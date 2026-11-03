@@ -12,7 +12,7 @@ struct DobrichsBrainApp: App {
         let demo = ProcessInfo.processInfo.arguments.contains("-demo")
         let config = ModelConfiguration(isStoredInMemoryOnly: demo)
         do {
-            container = try ModelContainer(for: Note.self, TaskItem.self, WorkEntry.self, Habit.self, configurations: config)
+            container = try ModelContainer(for: Note.self, TaskItem.self, WorkEntry.self, Habit.self, WaterDay.self, configurations: config)
         } catch {
             fatalError("Nie udało się otworzyć bazy: \(error)")
         }

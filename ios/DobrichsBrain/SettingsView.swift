@@ -6,6 +6,7 @@ struct SettingsView: View {
     @Environment(\.modelContext) private var context
     @AppStorage("monthlyTarget") private var target: Double = 168
     @AppStorage("hourlyRate") private var rate: Double = 0
+    @AppStorage("waterGoal") private var waterGoal: Int = 2000
     @State private var importing = false
     @State private var message: String?
 
@@ -21,6 +22,14 @@ struct SettingsView: View {
                     LabeledContent("Stawka (zł/h)") {
                         TextField("0", value: $rate, format: .number)
                             .keyboardType(.decimalPad)
+                            .multilineTextAlignment(.trailing)
+                    }
+                }
+
+                Section("Nawyki") {
+                    LabeledContent("Cel wody (ml / dzień)") {
+                        TextField("2000", value: $waterGoal, format: .number)
+                            .keyboardType(.numberPad)
                             .multilineTextAlignment(.trailing)
                     }
                 }

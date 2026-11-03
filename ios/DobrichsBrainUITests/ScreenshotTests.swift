@@ -20,9 +20,10 @@ final class ScreenshotTests: XCTestCase {
 
         app.tabBars.buttons["Nawyki"].tap()
         snap("3-nawyki")
+        app.buttons["+250 ml"].tap()
         app.buttons["Odhacz Siłownia"].tap()
         snap("4-nawyki-odhaczone")
-        app.staticTexts["Woda 2 l"].tap()
+        app.staticTexts["Bez papierosów"].tap()
         snap("5-nawyk-szczegoly")
         app.navigationBars.buttons.firstMatch.tap()
 

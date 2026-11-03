@@ -141,7 +141,7 @@ enum DemoData {
         // habits: done-pattern over the last 40 days (index 0 = today)
         let habits: [(String, String, (Int) -> Bool)] = [
             ("Siłownia", "💪", { $0 % 7 == 1 || $0 % 7 == 3 || $0 % 7 == 5 }),
-            ("Woda 2 l", "💧", { $0 >= 1 && $0 <= 12 || $0 >= 15 }),
+            ("Medytacja", "🧘", { $0 >= 1 && $0 <= 12 || $0 >= 15 }),
             ("Czytanie 10 min", "📚", { $0 % 3 != 2 }),
             ("Bez papierosów", "🚭", { $0 <= 20 }),
         ]
@@ -149,6 +149,9 @@ enum DemoData {
             let days = (0..<40).filter(h.2).map { Habit.key(at(-$0, 12)) }
             context.insert(Habit(name: h.0, icon: h.1, order: i, reminderMinutes: i == 1 ? 9 * 60 : nil, doneDays: days))
         }
+
+        context.insert(WaterDay(day: Habit.key(now), ml: 1250))
+        UserDefaults.standard.set(2000, forKey: "waterGoal")
 
         UserDefaults.standard.set(168.0, forKey: "monthlyTarget")
         UserDefaults.standard.set(32.5, forKey: "hourlyRate")
