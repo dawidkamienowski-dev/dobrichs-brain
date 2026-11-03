@@ -23,26 +23,33 @@ struct TasksView: View {
                     if hasDue {
                         DatePicker("Kiedy", selection: $due, in: now...)
                     }
-                    Button("Dodaj", action: add)
-                        .disabled(title.trimmingCharacters(in: .whitespaces).isEmpty)
+                    Button(action: add) {
+                        Label("Dodaj zadanie", systemImage: "plus").frame(maxWidth: .infinity)
+                    }
+                    .primaryAction()
+                    .controlSize(.large)
+                    .disabled(title.trimmingCharacters(in: .whitespaces).isEmpty)
+                    .listRowBackground(Color.clear)
+                    .listRowInsets(EdgeInsets())
                 }
 
-                section("Zaległe", open.filter { ($0.due ?? .distantFuture) < now }, color: .red)
-                section("Dziś", open.filter { guard let d = $0.due else { return false }; return d >= now && d < endOfToday })
-                section("Później", open.filter { guard let d = $0.due else { return false }; return d >= endOfToday })
-                section("Bez terminu", open.filter { $0.due == nil })
-                section("Zrobione", Array(done.prefix(30)))
+                section("Zaległe", icon: "exclamationmark.triangle.fill", color: Color.red, open.filter { ($0.due ?? .distantFuture) < now })
+                section("Dziś", icon: "sun.max.fill", color: Theme.tasks, open.filter { guard let d = $0.due else { return false }; return d >= now && d < endOfToday })
+                section("Później", icon: "calendar", color: Color.blue, open.filter { guard let d = $0.due else { return false }; return d >= endOfToday })
+                section("Bez terminu", icon: "tray.fill", color: Color.gray, open.filter { $0.due == nil })
+                section("Zrobione", icon: "checkmark", color: Color.green, Array(done.prefix(30)))
 
                 if tasks.isEmpty {
                     ContentUnavailableView("Brak zadań", systemImage: "checkmark.circle", description: Text("Czysta głowa 🧠"))
                 }
             }
             .navigationTitle("Zadania")
+            .screenStyle(Theme.tasks)
         }
     }
 
     @ViewBuilder
-    private func section(_ name: String, _ items: [TaskItem], color: Color = .secondary) -> some View {
+    private func section(_ name: String, icon: String, color: Color, _ items: [TaskItem]) -> some View {
         if !items.isEmpty {
             Section {
                 ForEach(items) { task in
@@ -54,7 +61,7 @@ struct TasksView: View {
                         }
                 }
             } header: {
-                Text("\(name) · \(items.count)").foregroundStyle(color)
+                SectionTitle(title: "\(name) · \(items.count)", systemName: icon, color: color)
             }
         }
     }
@@ -91,7 +98,8 @@ private struct TaskRow: View {
             Button(action: toggle) {
                 Image(systemName: task.done ? "checkmark.circle.fill" : "circle")
                     .font(.title2)
-                    .foregroundStyle(task.done ? Color.green : Color.secondary)
+                    .foregroundStyle(task.done ? Color.green : Theme.tasks.opacity(0.6))
+                    .symbolEffect(.bounce, value: task.done)
             }
             .buttonStyle(.borderless)
 

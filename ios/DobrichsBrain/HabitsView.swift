@@ -60,6 +60,7 @@ struct HabitsView: View {
                 }
             }
             .navigationTitle("Nawyki")
+            .screenStyle(Theme.habits)
             .navigationDestination(for: Habit.self) { HabitDetailView(habit: $0) }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -97,29 +98,31 @@ private struct DaySections: View {
 private struct DaySummaryCard: View {
     let summary: DaySummary
 
+    private func partColor(_ name: String) -> Color {
+        switch name {
+        case "Woda": return Theme.water
+        case "Zadania": return Theme.tasks
+        default: return Theme.habits
+        }
+    }
+
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            HStack(alignment: .firstTextBaseline) {
-                Text("Twój dzień").font(.headline)
-                Spacer()
-                Text("\(summary.percent)%")
-                    .font(.system(size: 34, weight: .bold, design: .rounded))
-                    .monospacedDigit()
-            }
-            ProgressView(value: summary.total)
-                .tint(summary.total >= 1 ? Color.green : Color.accentColor)
-                .scaleEffect(x: 1, y: 2.5, anchor: .center)
-                .padding(.vertical, 4)
-            HStack(alignment: .top) {
-                ForEach(summary.parts, id: \.name) { p in
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(p.name).font(.caption).foregroundStyle(.secondary)
-                        Text(p.detail).font(.caption.bold()).monospacedDigit()
+            HStack(spacing: 18) {
+                ProgressRing(progress: summary.total, size: 96, line: 12, tint: Theme.habits, label: "\(summary.percent)%")
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Twój dzień").font(.title3.bold())
+                    ForEach(summary.parts, id: \.name) { p in
+                        HStack(spacing: 8) {
+                            Circle().fill(partColor(p.name)).frame(width: 8, height: 8)
+                            Text(p.name).font(.subheadline).foregroundStyle(.secondary)
+                            Spacer()
+                            Text(p.detail).font(.subheadline.bold()).monospacedDigit()
+                        }
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
-            Text(summary.message).font(.caption).foregroundStyle(.secondary)
+            Text(summary.message).font(.footnote).foregroundStyle(.secondary)
         }
         .padding(.vertical, 4)
     }
@@ -134,7 +137,11 @@ private struct WaterCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
-                Label("Woda", systemImage: "drop.fill").font(.headline).foregroundStyle(.blue)
+                Label {
+                    Text("Woda").font(.headline)
+                } icon: {
+                    IconBadge(systemName: "drop.fill", color: Theme.water)
+                }
                 Spacer()
                 Text("\(ml) / \(goal) ml").bold().monospacedDigit()
             }
@@ -142,7 +149,7 @@ private struct WaterCard: View {
                    in: 0...Double(maxML), step: 50) { editing in
                 if !editing { WidgetCenter.shared.reloadAllTimelines() }
             }
-            .tint(.blue)
+            .tint(Theme.water)
             .accessibilityIdentifier("waterSlider")
             HStack(spacing: 8) {
                 ForEach([250, 500], id: \.self) { amount in
@@ -154,13 +161,14 @@ private struct WaterCard: View {
                             .font(.subheadline.bold())
                             .padding(.horizontal, 12)
                             .padding(.vertical, 6)
-                            .background(Capsule().fill(Color.blue.opacity(0.15)))
+                            .foregroundStyle(Theme.water)
+                            .background(Capsule().fill(Theme.water.opacity(0.16)))
                     }
                     .buttonStyle(.borderless)
                 }
                 Spacer()
                 if goal > 0 && ml >= goal {
-                    Text("Cel osiągnięty 💧").font(.caption).foregroundStyle(.blue)
+                    Text("Cel osiągnięty 💧").font(.caption.bold()).foregroundStyle(Theme.water)
                 }
             }
         }
@@ -188,7 +196,7 @@ private struct HabitRow: View {
                 HStack(spacing: 4) {
                     ForEach(lastWeek, id: \.self) { day in
                         Circle()
-                            .fill(habit.isDone(day) ? Color.accentColor : Color.secondary.opacity(0.2))
+                            .fill(habit.isDone(day) ? Theme.habits : Color.secondary.opacity(0.2))
                             .frame(width: 10, height: 10)
                     }
                 }
@@ -203,7 +211,8 @@ private struct HabitRow: View {
             } label: {
                 Image(systemName: done ? "checkmark.circle.fill" : "circle")
                     .font(.system(size: 34))
-                    .foregroundStyle(done ? Color.green : Color.secondary)
+                    .foregroundStyle(done ? Color.green : Theme.habits.opacity(0.5))
+                    .symbolEffect(.bounce, value: done)
             }
             .buttonStyle(.borderless)
             .accessibilityLabel("Odhacz \(habit.name)")
@@ -259,6 +268,7 @@ private struct HabitDetailView: View {
             }
         }
         .navigationTitle("\(habit.icon) \(habit.name)")
+        .screenStyle(Theme.habits)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             remind = habit.reminderMinutes != nil
@@ -299,7 +309,7 @@ private struct HabitDetailView: View {
                         Text("\(i - offset + 1)")
                             .font(.callout.weight(cal.isDate(day, inSameDayAs: today) ? .bold : .regular))
                             .frame(maxWidth: .infinity, minHeight: 36)
-                            .background(Circle().fill(done ? Color.accentColor : Color.clear))
+                            .background(Circle().fill(done ? Theme.habits : Color.clear))
                             .foregroundStyle(done ? Color.white : (future ? Color.secondary : Color.primary))
                     }
                     .buttonStyle(.borderless)

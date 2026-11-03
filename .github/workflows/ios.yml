@@ -20,6 +20,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Select newest Xcode (iOS 26 SDK = Liquid Glass)
+        run: |
+          X=$(ls -d /Applications/Xcode_*.app | grep -viE 'beta|release_candidate|_rc' | sort -V | tail -1)
+          sudo xcode-select -s "$X"
+          xcodebuild -version
+
       - name: Generate Xcode project
         working-directory: ios
         run: |

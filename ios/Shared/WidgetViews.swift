@@ -30,18 +30,7 @@ struct DayWidgetView: View {
     }
 
     private func ring(size: CGFloat, line: CGFloat) -> some View {
-        ZStack {
-            Circle().stroke(Color.secondary.opacity(0.2), lineWidth: line)
-            Circle()
-                .trim(from: 0, to: summary.total)
-                .stroke(summary.total >= 1 ? Color.green : Color.accentColor,
-                        style: StrokeStyle(lineWidth: line, lineCap: .round))
-                .rotationEffect(.degrees(-90))
-            Text("\(summary.percent)%")
-                .font(.system(size: size * 0.26, weight: .bold, design: .rounded))
-                .monospacedDigit()
-        }
-        .frame(width: size, height: size)
+        ProgressRing(progress: summary.total, size: size, line: line, tint: Theme.habits, label: "\(summary.percent)%")
     }
 
     private var small: some View {
@@ -53,7 +42,7 @@ struct DayWidgetView: View {
                 Text("💧 +250 ml").font(.caption.bold()).frame(maxWidth: .infinity)
             }
             .buttonStyle(.bordered)
-            .tint(.blue)
+            .tint(Theme.water)
         }
     }
 
@@ -68,7 +57,7 @@ struct DayWidgetView: View {
                         Text(p.detail).font(.caption.bold()).monospacedDigit()
                     }
                     ProgressView(value: p.value)
-                        .tint(p.name == "Woda" ? Color.blue : Color.accentColor)
+                        .tint(p.name == "Woda" ? Theme.water : p.name == "Zadania" ? Theme.tasks : Theme.habits)
                 }
                 HStack(spacing: 6) {
                     Button(intent: AddWaterIntent(ml: 250)) { Text("💧 +250") }
@@ -76,7 +65,7 @@ struct DayWidgetView: View {
                 }
                 .font(.caption.bold())
                 .buttonStyle(.bordered)
-                .tint(.blue)
+                .tint(Theme.water)
             }
         }
     }

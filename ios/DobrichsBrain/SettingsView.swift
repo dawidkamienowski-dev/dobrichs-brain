@@ -15,34 +15,39 @@ struct SettingsView: View {
         NavigationStack {
             Form {
                 Section("Praca") {
-                    LabeledContent("Cel godzin / miesiąc") {
+                    LabeledContent {
                         TextField("168", value: $target, format: .number)
                             .keyboardType(.decimalPad)
                             .multilineTextAlignment(.trailing)
-                    }
-                    LabeledContent("Stawka (zł/h)") {
+                    } label: { badgeLabel("Cel godzin / miesiąc", "target", Theme.work) }
+                    LabeledContent {
                         TextField("0", value: $rate, format: .number)
                             .keyboardType(.decimalPad)
                             .multilineTextAlignment(.trailing)
-                    }
+                    } label: { badgeLabel("Stawka (zł/h)", "banknote.fill", .green) }
                 }
 
                 Section("Nawyki") {
-                    LabeledContent("Cel wody (ml / dzień)") {
+                    LabeledContent {
                         TextField("2000", value: $waterGoal, format: .number)
                             .keyboardType(.numberPad)
                             .multilineTextAlignment(.trailing)
-                    }
+                    } label: { badgeLabel("Cel wody (ml / dzień)", "drop.fill", Theme.water) }
                 }
 
                 Section {
-                    NavigationLink("Podgląd widżetów") { WidgetGalleryView() }
+                    NavigationLink { WidgetGalleryView() } label: {
+                        badgeLabel("Podgląd widżetów", "square.grid.2x2.fill", Theme.notes)
+                    }
                 } footer: {
                     Text("Dodawanie: przytrzymaj palec na ekranie głównym → Edytuj → Dodaj widżet → Dobrich’s Brain.")
                 }
 
                 Section {
-                    Button("Importuj kopię z web-apki") { importing = true }
+                    Button { importing = true } label: {
+                        badgeLabel("Importuj kopię z web-apki", "square.and.arrow.down.fill", .blue)
+                    }
+                    .foregroundStyle(.primary)
                 } header: {
                     Text("Przenosiny")
                 } footer: {
@@ -50,10 +55,13 @@ struct SettingsView: View {
                 }
 
                 Section("O apce") {
-                    LabeledContent("Wersja", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0")
+                    LabeledContent {
+                        Text(Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0")
+                    } label: { badgeLabel("Wersja", "brain.head.profile", Theme.notes) }
                 }
             }
             .navigationTitle("Więcej")
+            .screenStyle(Theme.notes)
             .fileImporter(isPresented: $importing, allowedContentTypes: [.json]) { result in
                 message = importBackup(result)
             }
@@ -61,6 +69,10 @@ struct SettingsView: View {
                 Button("OK") {}
             }
         }
+    }
+
+    private func badgeLabel(_ title: String, _ icon: String, _ color: Color) -> some View {
+        Label { Text(title) } icon: { IconBadge(systemName: icon, color: color) }
     }
 
     private func importBackup(_ result: Result<URL, Error>) -> String {
@@ -98,7 +110,9 @@ private struct WidgetGalleryView: View {
                     }
                     .padding(10)
                     .foregroundStyle(.white)
-                    .background(RoundedRectangle(cornerRadius: 18).fill(Color.black.opacity(0.85)))
+                    .tint(.white)
+                    .environment(\.colorScheme, .dark)
+                    .background(RoundedRectangle(cornerRadius: 18, style: .continuous).fill(Color.black.opacity(0.85)))
                 }
                 tile(DayWidgetView(summary: summary, family: .systemMedium), width: 344, height: 160)
                 Text("Na górze: mały widżet i widżety na ekran blokady. Na dole: średni widżet z przyciskami wody.")
@@ -106,7 +120,7 @@ private struct WidgetGalleryView: View {
             }
             .padding()
         }
-        .background(Color(.systemGroupedBackground))
+        .screenStyle(Theme.notes)
         .navigationTitle("Widżety")
         .navigationBarTitleDisplayMode(.inline)
     }
@@ -115,6 +129,6 @@ private struct WidgetGalleryView: View {
         content
             .padding(14)
             .frame(width: width, height: height)
-            .background(RoundedRectangle(cornerRadius: 22).fill(Color(.secondarySystemGroupedBackground)))
+            .background(RoundedRectangle(cornerRadius: 22, style: .continuous).fill(Color(.secondarySystemGroupedBackground)))
     }
 }

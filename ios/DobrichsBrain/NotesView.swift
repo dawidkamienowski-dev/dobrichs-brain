@@ -27,12 +27,22 @@ struct NotesView: View {
         NavigationStack {
             List {
                 Section {
-                    TextField("Co chcesz zapamiętać? Użyj #tagów", text: $draft, axis: .vertical)
-                        .lineLimit(2...6)
-                        .accessibilityIdentifier("noteDraft")
-                    Button("Zapisz", action: add)
-                        .disabled(draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                        .accessibilityIdentifier("noteSave")
+                    HStack(alignment: .top, spacing: 12) {
+                        IconBadge(systemName: "sparkles", color: Theme.notes)
+                        TextField("Co chcesz zapamiętać? Użyj #tagów", text: $draft, axis: .vertical)
+                            .lineLimit(2...6)
+                            .accessibilityIdentifier("noteDraft")
+                    }
+                    .padding(.vertical, 4)
+                    Button(action: add) {
+                        Label("Zapamiętaj", systemImage: "brain.head.profile").frame(maxWidth: .infinity)
+                    }
+                    .primaryAction()
+                    .controlSize(.large)
+                    .disabled(draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                    .accessibilityIdentifier("noteSave")
+                    .listRowBackground(Color.clear)
+                    .listRowInsets(EdgeInsets())
                 }
 
                 if !allTags.isEmpty {
@@ -41,8 +51,9 @@ struct NotesView: View {
                             HStack {
                                 ForEach(allTags, id: \.self) { t in
                                     Button(t) { tag = tag == t ? nil : t }
-                                        .buttonStyle(.bordered)
-                                        .tint(tag == t ? Color.accentColor : Color.secondary)
+                                        .secondaryAction()
+                                        .buttonBorderShape(.capsule)
+                                        .tint(tag == t ? Theme.notes : Color.secondary)
                                 }
                             }
                         }
@@ -75,6 +86,7 @@ struct NotesView: View {
             }
             .searchable(text: $search, prompt: "Szukaj w pamięci")
             .navigationTitle("Notatki")
+            .screenStyle(Theme.notes)
             .sheet(item: $editing) { NoteEditor(note: $0) }
         }
     }
@@ -94,9 +106,9 @@ private struct NoteRow: View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(alignment: .firstTextBaseline) {
                 if note.pinned {
-                    Image(systemName: "pin.fill").foregroundStyle(.orange).font(.caption)
+                    Image(systemName: "pin.fill").foregroundStyle(Theme.tasks).font(.caption)
                 }
-                Text(note.text)
+                Text(note.text).font(.body.weight(.medium))
             }
             Text(note.updatedAt, format: .dateTime.day().month().hour().minute())
                 .font(.caption)

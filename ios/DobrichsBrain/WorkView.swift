@@ -44,6 +44,7 @@ struct WorkView: View {
                             .monospacedDigit()
                         if target > 0 {
                             ProgressView(value: min(total / target, 1))
+                                .scaleEffect(x: 1, y: 2, anchor: .center)
                             Text("cel \(target.hoursText) · zostało \(max(0, target - total).hoursText)")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
@@ -51,10 +52,10 @@ struct WorkView: View {
                     }
                     .padding(.vertical, 4)
 
-                    LabeledContent("Dni w pracy", value: "\(days)")
-                    LabeledContent("Średnio dziennie", value: days > 0 ? (total / Double(days)).hoursText : "–")
+                    statRow("Dni w pracy", "\(days)", icon: "calendar", color: .blue)
+                    statRow("Średnio dziennie", days > 0 ? (total / Double(days)).hoursText : "–", icon: "chart.bar.fill", color: .purple)
                     if rate > 0 {
-                        LabeledContent("Zarobek brutto", value: pln(total * rate))
+                        statRow("Zarobek brutto", pln(total * rate), icon: "banknote.fill", color: .green)
                     }
                 }
 
@@ -73,6 +74,7 @@ struct WorkView: View {
                 }
             }
             .navigationTitle("Praca")
+            .screenStyle(Theme.work)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     ShareLink(item: csvFile(list)) { Image(systemName: "square.and.arrow.up") }
@@ -100,8 +102,10 @@ struct WorkView: View {
                     .foregroundStyle(.secondary)
                 TimelineView(.periodic(from: .now, by: 30)) { ctx in
                     Text(durationText(ctx.date.timeIntervalSince(start)))
-                        .font(.system(size: 44, weight: .bold, design: .rounded))
+                        .font(.system(size: 48, weight: .bold, design: .rounded))
                         .monospacedDigit()
+                        .foregroundStyle(Theme.work.gradient)
+                        .contentTransition(.numericText())
                 }
                 Button {
                     breakText = "0"
@@ -109,7 +113,7 @@ struct WorkView: View {
                 } label: {
                     Text("Zakończ zmianę").frame(maxWidth: .infinity)
                 }
-                .buttonStyle(.borderedProminent)
+                .primaryAction()
                 .controlSize(.large)
             }
             .frame(maxWidth: .infinity)
@@ -121,9 +125,17 @@ struct WorkView: View {
             } label: {
                 Label("Zaczynam pracę", systemImage: "play.fill").frame(maxWidth: .infinity)
             }
-            .buttonStyle(.borderedProminent)
+            .primaryAction()
             .controlSize(.large)
             .padding(.vertical, 6)
+        }
+    }
+
+    private func statRow(_ title: String, _ value: String, icon: String, color: Color) -> some View {
+        LabeledContent {
+            Text(value).monospacedDigit()
+        } label: {
+            Label { Text(title) } icon: { IconBadge(systemName: icon, color: color) }
         }
     }
 

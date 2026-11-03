@@ -67,6 +67,8 @@ struct RootView: View {
             SettingsView()
                 .tabItem { Label("Więcej", systemImage: "gearshape") }
         }
+        .fontDesign(.rounded)
+        .minimizingTabBar()
         .onAppear {
             // bring back the Live Activity if a shift is running (e.g. after the phone restarted)
             if shiftStart > 0 { ShiftActivity.start(Date(timeIntervalSince1970: shiftStart)) }
