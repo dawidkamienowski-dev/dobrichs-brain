@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0d12">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Brain">
+<title>Dobrich’s Brain</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="dot"></span>Dobrich’s Brain</div>
+  <div class="sub" id="greeting"></div>
+</header>
+
+<main>
+  <!-- NOTATKI -->
+  <section id="tab-notes" class="tab active">
+    <form id="note-form" class="card compose">
+      <textarea id="note-text" rows="3" placeholder="Co chcesz zapamiętać? Użyj #tagów"></textarea>
+      <div class="row end"><button class="btn primary" type="submit">Zapisz</button></div>
+    </form>
+    <input id="note-search" class="search" type="search" placeholder="Szukaj w pamięci…">
+    <div id="tag-bar" class="chips"></div>
+    <div id="note-list" class="list"></div>
+  </section>
+
+  <!-- ZADANIA -->
+  <section id="tab-tasks" class="tab">
+    <form id="task-form" class="card compose">
+      <input id="task-title" placeholder="Nowe zadanie…" required>
+      <div class="row">
+        <label class="field grow">Termin<input id="task-due" type="datetime-local"></label>
+        <button class="btn primary" type="submit">Dodaj</button>
+      </div>
+    </form>
+    <div id="task-list"></div>
+  </section>
+
+  <!-- PRACA -->
+  <section id="tab-work" class="tab">
+    <div class="card shift" id="shift-card"></div>
+
+    <div class="month-nav">
+      <button class="icon-btn" id="m-prev" aria-label="Poprzedni miesiąc">‹</button>
+      <div id="m-label"></div>
+      <button class="icon-btn" id="m-next" aria-label="Następny miesiąc">›</button>
+    </div>
+    <div class="stats" id="work-stats"></div>
+
+    <details class="card" id="work-add">
+      <summary>Dodaj wpis ręcznie</summary>
+      <form id="work-form">
+        <div class="row">
+          <label class="field grow">Data<input id="w-date" type="date" required></label>
+        </div>
+        <div class="row">
+          <label class="field grow">Od<input id="w-start" type="time"></label>
+          <label class="field grow">Do<input id="w-end" type="time"></label>
+          <label class="field small">Przerwa (min)<input id="w-break" type="number" min="0" step="5" value="0"></label>
+        </div>
+        <div class="row">
+          <label class="field grow">albo liczba godzin<input id="w-hours" type="number" min="0" step="0.25" placeholder="np. 8"></label>
+        </div>
+        <label class="field">Notatka<input id="w-note" placeholder="opcjonalnie"></label>
+        <div class="row end"><button class="btn primary" type="submit">Zapisz</button></div>
+      </form>
+    </details>
+
+    <div id="work-list" class="list"></div>
+    <div class="row end"><button class="btn ghost" id="w-csv">Eksport miesiąca (CSV)</button></div>
+  </section>
+
+  <!-- USTAWIENIA -->
+  <section id="tab-settings" class="tab">
+    <div class="card">
+      <h3>Praca</h3>
+      <label class="field">Cel godzin w miesiącu<input id="s-target" type="number" min="0" step="1" placeholder="np. 168"></label>
+      <label class="field">Stawka za godzinę (zł)<input id="s-rate" type="number" min="0" step="0.01" placeholder="opcjonalnie"></label>
+    </div>
+    <div class="card">
+      <h3>Kopia zapasowa</h3>
+      <p class="muted">Dane są tylko na tym telefonie. Rób kopię co jakiś czas i trzymaj ją w Plikach albo iCloud.</p>
+      <div class="row">
+        <button class="btn" id="b-export">Eksportuj kopię</button>
+        <label class="btn">Przywróć z pliku<input id="b-import" type="file" accept="application/json,.json" hidden></label>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Jak zainstalować</h3>
+      <p class="muted">Safari → przycisk Udostępnij → „Dodaj do ekranu początkowego”. Apka działa też bez internetu.</p>
+    </div>
+  </section>
+</main>
+
+<nav class="tabbar">
+  <button data-tab="notes" class="active"><span class="ti">✎</span>Notatki</button>
+  <button data-tab="tasks"><span class="ti">☑</span>Zadania<span class="badge" id="task-badge" hidden></span></button>
+  <button data-tab="work"><span class="ti">◷</span>Praca</button>
+  <button data-tab="settings"><span class="ti">⚙</span>Więcej</button>
+</nav>
+
+<div id="toast" role="status"></div>
+<script src="app.js"></script>
+</body>
+</html>
