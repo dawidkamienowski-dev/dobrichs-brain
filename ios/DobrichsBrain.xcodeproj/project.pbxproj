@@ -1,0 +1,440 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0CAF93C3A1E6910D7BDFC3FD /* WorkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF46D3AE90B9C8E03401660 /* WorkView.swift */; };
+		1778BE46B82ED76B740884E0 /* ScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A3E3029D888CC316AC987 /* ScreenshotTests.swift */; };
+		2F09BB200B4ABB9AB8731230 /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F73D0038C95F7701A1842 /* NotesView.swift */; };
+		3CE592AA804EA6D5265A3CB7 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CA42B9DE49DD4F4C9D15E0 /* Support.swift */; };
+		3D72356EC0DA8B37D89148A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82C95437DFCAFF7D8CC09694 /* Assets.xcassets */; };
+		3F14025647CA62F509521DCD /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C6F90F72429C915A4E43E8 /* App.swift */; };
+		962C7CC1282790F9B90B1890 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790749EDA17AB547EFE1749 /* Models.swift */; };
+		C3ED3FE29A2FA938D8AE972D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5226750DE4D6A5A667A49A /* SettingsView.swift */; };
+		E2162916DA39ACAE14E76C44 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6226B45D9F8AFA1FE7486392 /* TasksView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AAAB1C55E80F9D5DA2BE308E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 19D08AE4502D170374BE4AB7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 543223EF587C9BBC264A4CD4;
+			remoteInfo = DobrichsBrain;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0AF46D3AE90B9C8E03401660 /* WorkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkView.swift; sourceTree = "<group>"; };
+		1AEFFAC7246A44CB8E53E7BA /* DobrichsBrainUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = DobrichsBrainUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A5226750DE4D6A5A667A49A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		6226B45D9F8AFA1FE7486392 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
+		792A3E3029D888CC316AC987 /* ScreenshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotTests.swift; sourceTree = "<group>"; };
+		82C95437DFCAFF7D8CC09694 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		928F73D0038C95F7701A1842 /* NotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesView.swift; sourceTree = "<group>"; };
+		E5C6F90F72429C915A4E43E8 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		E790749EDA17AB547EFE1749 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		E7CA42B9DE49DD4F4C9D15E0 /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
+		F75C065C5E589DB9BF055888 /* DobrichsBrain.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = DobrichsBrain.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		434D9F4F3C18A64D2F282F19 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F75C065C5E589DB9BF055888 /* DobrichsBrain.app */,
+				1AEFFAC7246A44CB8E53E7BA /* DobrichsBrainUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		53970EB941A85F3C749DE6B6 = {
+			isa = PBXGroup;
+			children = (
+				A9DD8A0A3077284EB7E5C6C6 /* DobrichsBrain */,
+				E0E115A213BFDE9A494B61A2 /* DobrichsBrainUITests */,
+				434D9F4F3C18A64D2F282F19 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A9DD8A0A3077284EB7E5C6C6 /* DobrichsBrain */ = {
+			isa = PBXGroup;
+			children = (
+				E5C6F90F72429C915A4E43E8 /* App.swift */,
+				82C95437DFCAFF7D8CC09694 /* Assets.xcassets */,
+				E790749EDA17AB547EFE1749 /* Models.swift */,
+				928F73D0038C95F7701A1842 /* NotesView.swift */,
+				2A5226750DE4D6A5A667A49A /* SettingsView.swift */,
+				E7CA42B9DE49DD4F4C9D15E0 /* Support.swift */,
+				6226B45D9F8AFA1FE7486392 /* TasksView.swift */,
+				0AF46D3AE90B9C8E03401660 /* WorkView.swift */,
+			);
+			path = DobrichsBrain;
+			sourceTree = "<group>";
+		};
+		E0E115A213BFDE9A494B61A2 /* DobrichsBrainUITests */ = {
+			isa = PBXGroup;
+			children = (
+				792A3E3029D888CC316AC987 /* ScreenshotTests.swift */,
+			);
+			path = DobrichsBrainUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		543223EF587C9BBC264A4CD4 /* DobrichsBrain */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BAA8E06CAF3A6DFD8D322693 /* Build configuration list for PBXNativeTarget "DobrichsBrain" */;
+			buildPhases = (
+				7633191D290D6E21D1F2376F /* Sources */,
+				2F4E70A9E3AB68655E46C021 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DobrichsBrain;
+			packageProductDependencies = (
+			);
+			productName = DobrichsBrain;
+			productReference = F75C065C5E589DB9BF055888 /* DobrichsBrain.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CA58E7DFFCB679303550F722 /* DobrichsBrainUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2F765D312A7BCCFD3ABD1AC8 /* Build configuration list for PBXNativeTarget "DobrichsBrainUITests" */;
+			buildPhases = (
+				926366FC24801D127C725998 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3EF02FF343C5D14F90393DA6 /* PBXTargetDependency */,
+			);
+			name = DobrichsBrainUITests;
+			packageProductDependencies = (
+			);
+			productName = DobrichsBrainUITests;
+			productReference = 1AEFFAC7246A44CB8E53E7BA /* DobrichsBrainUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		19D08AE4502D170374BE4AB7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					543223EF587C9BBC264A4CD4 = {
+						ProvisioningStyle = Automatic;
+					};
+					CA58E7DFFCB679303550F722 = {
+						TestTargetID = 543223EF587C9BBC264A4CD4;
+					};
+				};
+			};
+			buildConfigurationList = 05D9C9A9A96D4B5B010F9BE7 /* Build configuration list for PBXProject "DobrichsBrain" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 53970EB941A85F3C749DE6B6;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 434D9F4F3C18A64D2F282F19 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				543223EF587C9BBC264A4CD4 /* DobrichsBrain */,
+				CA58E7DFFCB679303550F722 /* DobrichsBrainUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2F4E70A9E3AB68655E46C021 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D72356EC0DA8B37D89148A0 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7633191D290D6E21D1F2376F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3F14025647CA62F509521DCD /* App.swift in Sources */,
+				962C7CC1282790F9B90B1890 /* Models.swift in Sources */,
+				2F09BB200B4ABB9AB8731230 /* NotesView.swift in Sources */,
+				C3ED3FE29A2FA938D8AE972D /* SettingsView.swift in Sources */,
+				3CE592AA804EA6D5265A3CB7 /* Support.swift in Sources */,
+				E2162916DA39ACAE14E76C44 /* TasksView.swift in Sources */,
+				0CAF93C3A1E6910D7BDFC3FD /* WorkView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		926366FC24801D127C725998 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1778BE46B82ED76B740884E0 /* ScreenshotTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3EF02FF343C5D14F90393DA6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 543223EF587C9BBC264A4CD4 /* DobrichsBrain */;
+			targetProxy = AAAB1C55E80F9D5DA2BE308E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0DCF93C204B28C6847DE9C1C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Dobrich’s Brain";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.dobrich.brain;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		0F0080B3A4C6DDD7AE662228 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Dobrich’s Brain";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.dobrich.brain;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		81AE7D94910631FBDE7437BC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		8FAD93E3772346A81BE54D04 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.dobrich.brain.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = DobrichsBrain;
+			};
+			name = Debug;
+		};
+		CBEC2CF9DBFB21561F407D0E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DAEB88FDCC5C5DFBF8378430 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.dobrich.brain.uitests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = DobrichsBrain;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		05D9C9A9A96D4B5B010F9BE7 /* Build configuration list for PBXProject "DobrichsBrain" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CBEC2CF9DBFB21561F407D0E /* Debug */,
+				81AE7D94910631FBDE7437BC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		2F765D312A7BCCFD3ABD1AC8 /* Build configuration list for PBXNativeTarget "DobrichsBrainUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8FAD93E3772346A81BE54D04 /* Debug */,
+				DAEB88FDCC5C5DFBF8378430 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BAA8E06CAF3A6DFD8D322693 /* Build configuration list for PBXNativeTarget "DobrichsBrain" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0DCF93C204B28C6847DE9C1C /* Debug */,
+				0F0080B3A4C6DDD7AE662228 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 19D08AE4502D170374BE4AB7 /* Project object */;
+}
