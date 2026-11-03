@@ -7,15 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		003E89BD2E56A56D7D2C12BE /* WidgetViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3764153FC3AD0BDBDFECFEE /* WidgetViews.swift */; };
 		0CAF93C3A1E6910D7BDFC3FD /* WorkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF46D3AE90B9C8E03401660 /* WorkView.swift */; };
 		1778BE46B82ED76B740884E0 /* ScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792A3E3029D888CC316AC987 /* ScreenshotTests.swift */; };
+		209C4C67144EBED298C1D327 /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C994B70CD553F3E94E2E19 /* Shared.swift */; };
+		2E77EAAEF7C346F24F050B82 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C75BC7F92E866B014F0CA1E /* Models.swift */; };
 		2F09BB200B4ABB9AB8731230 /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 928F73D0038C95F7701A1842 /* NotesView.swift */; };
+		3A20C73BD083D2E096B4D80F /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C75BC7F92E866B014F0CA1E /* Models.swift */; };
 		3CE592AA804EA6D5265A3CB7 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CA42B9DE49DD4F4C9D15E0 /* Support.swift */; };
 		3D72356EC0DA8B37D89148A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82C95437DFCAFF7D8CC09694 /* Assets.xcassets */; };
 		3F14025647CA62F509521DCD /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C6F90F72429C915A4E43E8 /* App.swift */; };
-		962C7CC1282790F9B90B1890 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790749EDA17AB547EFE1749 /* Models.swift */; };
+		8F3F6F04A0BCA2B79509E2E4 /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C994B70CD553F3E94E2E19 /* Shared.swift */; };
+		96638AD776A26C9652C35543 /* DobrichsBrainWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E7E27B4DB515902C624EA6AF /* DobrichsBrainWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B6B5CEC57DD5FE5CD9EDF6DD /* WidgetViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3764153FC3AD0BDBDFECFEE /* WidgetViews.swift */; };
 		C3ED3FE29A2FA938D8AE972D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5226750DE4D6A5A667A49A /* SettingsView.swift */; };
 		E2162916DA39ACAE14E76C44 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6226B45D9F8AFA1FE7486392 /* TasksView.swift */; };
+		F63AF20340B0BAC03265B34E /* Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE54D7B8B44123450B2835A /* Widgets.swift */; };
 		F6FB1251BD86761415E18C34 /* HabitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B81D92F23DD3FFDAEBC8D /* HabitsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,20 +34,48 @@
 			remoteGlobalIDString = 543223EF587C9BBC264A4CD4;
 			remoteInfo = DobrichsBrain;
 		};
+		B3A4757442B159BB23BFC8F2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 19D08AE4502D170374BE4AB7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C843036279EB37EB61ADCF8E;
+			remoteInfo = DobrichsBrainWidgets;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AAC7C61D099F4396B502E16C /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				96638AD776A26C9652C35543 /* DobrichsBrainWidgets.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0AF46D3AE90B9C8E03401660 /* WorkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkView.swift; sourceTree = "<group>"; };
 		1AEFFAC7246A44CB8E53E7BA /* DobrichsBrainUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = DobrichsBrainUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		22C994B70CD553F3E94E2E19 /* Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
+		22EDF54B927A6534417AAF52 /* Widgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Widgets.entitlements; sourceTree = "<group>"; };
 		245B81D92F23DD3FFDAEBC8D /* HabitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsView.swift; sourceTree = "<group>"; };
 		2A5226750DE4D6A5A667A49A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		3075025D8D67F8AAFB3915EB /* DobrichsBrain.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DobrichsBrain.entitlements; sourceTree = "<group>"; };
 		6226B45D9F8AFA1FE7486392 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
+		6C75BC7F92E866B014F0CA1E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		792A3E3029D888CC316AC987 /* ScreenshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotTests.swift; sourceTree = "<group>"; };
 		82C95437DFCAFF7D8CC09694 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		928F73D0038C95F7701A1842 /* NotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesView.swift; sourceTree = "<group>"; };
+		9AE54D7B8B44123450B2835A /* Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widgets.swift; sourceTree = "<group>"; };
+		A3764153FC3AD0BDBDFECFEE /* WidgetViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViews.swift; sourceTree = "<group>"; };
+		E4BE118596D5A4C93ABFFE98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		E5C6F90F72429C915A4E43E8 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
-		E790749EDA17AB547EFE1749 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		E7CA42B9DE49DD4F4C9D15E0 /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
+		E7E27B4DB515902C624EA6AF /* DobrichsBrainWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = DobrichsBrainWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F75C065C5E589DB9BF055888 /* DobrichsBrain.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = DobrichsBrain.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -50,6 +85,7 @@
 			children = (
 				F75C065C5E589DB9BF055888 /* DobrichsBrain.app */,
 				1AEFFAC7246A44CB8E53E7BA /* DobrichsBrainUITests.xctest */,
+				E7E27B4DB515902C624EA6AF /* DobrichsBrainWidgets.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -59,6 +95,8 @@
 			children = (
 				A9DD8A0A3077284EB7E5C6C6 /* DobrichsBrain */,
 				E0E115A213BFDE9A494B61A2 /* DobrichsBrainUITests */,
+				F415B84880B725CA8B5443F7 /* Shared */,
+				EA8AC23BF20411113D627440 /* Widgets */,
 				434D9F4F3C18A64D2F282F19 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -68,8 +106,8 @@
 			children = (
 				E5C6F90F72429C915A4E43E8 /* App.swift */,
 				82C95437DFCAFF7D8CC09694 /* Assets.xcassets */,
+				3075025D8D67F8AAFB3915EB /* DobrichsBrain.entitlements */,
 				245B81D92F23DD3FFDAEBC8D /* HabitsView.swift */,
-				E790749EDA17AB547EFE1749 /* Models.swift */,
 				928F73D0038C95F7701A1842 /* NotesView.swift */,
 				2A5226750DE4D6A5A667A49A /* SettingsView.swift */,
 				E7CA42B9DE49DD4F4C9D15E0 /* Support.swift */,
@@ -87,6 +125,26 @@
 			path = DobrichsBrainUITests;
 			sourceTree = "<group>";
 		};
+		EA8AC23BF20411113D627440 /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				E4BE118596D5A4C93ABFFE98 /* Info.plist */,
+				22EDF54B927A6534417AAF52 /* Widgets.entitlements */,
+				9AE54D7B8B44123450B2835A /* Widgets.swift */,
+			);
+			path = Widgets;
+			sourceTree = "<group>";
+		};
+		F415B84880B725CA8B5443F7 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				6C75BC7F92E866B014F0CA1E /* Models.swift */,
+				22C994B70CD553F3E94E2E19 /* Shared.swift */,
+				A3764153FC3AD0BDBDFECFEE /* WidgetViews.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -96,10 +154,12 @@
 			buildPhases = (
 				7633191D290D6E21D1F2376F /* Sources */,
 				2F4E70A9E3AB68655E46C021 /* Resources */,
+				AAC7C61D099F4396B502E16C /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				BF20C06E52105BFC325E1EB4 /* PBXTargetDependency */,
 			);
 			name = DobrichsBrain;
 			packageProductDependencies = (
@@ -107,6 +167,23 @@
 			productName = DobrichsBrain;
 			productReference = F75C065C5E589DB9BF055888 /* DobrichsBrain.app */;
 			productType = "com.apple.product-type.application";
+		};
+		C843036279EB37EB61ADCF8E /* DobrichsBrainWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D7C3C32F1E345E8A82884D10 /* Build configuration list for PBXNativeTarget "DobrichsBrainWidgets" */;
+			buildPhases = (
+				5474D025B04FD7CC810ACACC /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DobrichsBrainWidgets;
+			packageProductDependencies = (
+			);
+			productName = DobrichsBrainWidgets;
+			productReference = E7E27B4DB515902C624EA6AF /* DobrichsBrainWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		CA58E7DFFCB679303550F722 /* DobrichsBrainUITests */ = {
 			isa = PBXNativeTarget;
@@ -138,6 +215,9 @@
 					543223EF587C9BBC264A4CD4 = {
 						ProvisioningStyle = Automatic;
 					};
+					C843036279EB37EB61ADCF8E = {
+						ProvisioningStyle = Automatic;
+					};
 					CA58E7DFFCB679303550F722 = {
 						TestTargetID = 543223EF587C9BBC264A4CD4;
 					};
@@ -158,6 +238,7 @@
 			projectRoot = "";
 			targets = (
 				543223EF587C9BBC264A4CD4 /* DobrichsBrain */,
+				C843036279EB37EB61ADCF8E /* DobrichsBrainWidgets */,
 				CA58E7DFFCB679303550F722 /* DobrichsBrainUITests */,
 			);
 		};
@@ -175,17 +256,30 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5474D025B04FD7CC810ACACC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A20C73BD083D2E096B4D80F /* Models.swift in Sources */,
+				8F3F6F04A0BCA2B79509E2E4 /* Shared.swift in Sources */,
+				B6B5CEC57DD5FE5CD9EDF6DD /* WidgetViews.swift in Sources */,
+				F63AF20340B0BAC03265B34E /* Widgets.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7633191D290D6E21D1F2376F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				3F14025647CA62F509521DCD /* App.swift in Sources */,
 				F6FB1251BD86761415E18C34 /* HabitsView.swift in Sources */,
-				962C7CC1282790F9B90B1890 /* Models.swift in Sources */,
+				2E77EAAEF7C346F24F050B82 /* Models.swift in Sources */,
 				2F09BB200B4ABB9AB8731230 /* NotesView.swift in Sources */,
 				C3ED3FE29A2FA938D8AE972D /* SettingsView.swift in Sources */,
+				209C4C67144EBED298C1D327 /* Shared.swift in Sources */,
 				3CE592AA804EA6D5265A3CB7 /* Support.swift in Sources */,
 				E2162916DA39ACAE14E76C44 /* TasksView.swift in Sources */,
+				003E89BD2E56A56D7D2C12BE /* WidgetViews.swift in Sources */,
 				0CAF93C3A1E6910D7BDFC3FD /* WorkView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,6 +300,11 @@
 			target = 543223EF587C9BBC264A4CD4 /* DobrichsBrain */;
 			targetProxy = AAAB1C55E80F9D5DA2BE308E /* PBXContainerItemProxy */;
 		};
+		BF20C06E52105BFC325E1EB4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C843036279EB37EB61ADCF8E /* DobrichsBrainWidgets */;
+			targetProxy = B3A4757442B159BB23BFC8F2 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -214,10 +313,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DobrichsBrain/DobrichsBrain.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Dobrich’s Brain";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -235,10 +336,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DobrichsBrain/DobrichsBrain.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Dobrich’s Brain";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -250,6 +353,42 @@
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
+		};
+		18AE30F31ED91EF5674ECB07 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Widgets/Widgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = Widgets/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.dobrich.brain.widgets;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		35914D83EFCF61AF6E659C98 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Widgets/Widgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = Widgets/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = dev.dobrich.brain.widgets;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
 		};
 		81AE7D94910631FBDE7437BC /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -434,6 +573,15 @@
 			buildConfigurations = (
 				0DCF93C204B28C6847DE9C1C /* Debug */,
 				0F0080B3A4C6DDD7AE662228 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		D7C3C32F1E345E8A82884D10 /* Build configuration list for PBXNativeTarget "DobrichsBrainWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				35914D83EFCF61AF6E659C98 /* Debug */,
+				18AE30F31ED91EF5674ECB07 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
