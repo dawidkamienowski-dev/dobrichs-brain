@@ -18,15 +18,23 @@ final class ScreenshotTests: XCTestCase {
         app.tabBars.buttons["Zadania"].tap()
         snap("2-zadania")
 
+        app.tabBars.buttons["Nawyki"].tap()
+        snap("3-nawyki")
+        app.buttons["Odhacz Siłownia"].tap()
+        snap("4-nawyki-odhaczone")
+        app.staticTexts["Woda 2 l"].tap()
+        snap("5-nawyk-szczegoly")
+        app.navigationBars.buttons.firstMatch.tap()
+
         app.tabBars.buttons["Praca"].tap()
-        snap("3-praca")
+        snap("6-praca")
 
         app.buttons["Dodaj wpis"].tap()
-        snap("4-nowy-wpis")
+        snap("7-nowy-wpis")
         app.buttons["Anuluj"].tap()
 
         app.tabBars.buttons["Więcej"].tap()
-        snap("5-wiecej")
+        snap("8-wiecej")
 
         app.tabBars.buttons["Notatki"].tap()
         let draft = app.descendants(matching: .any).matching(identifier: "noteDraft").firstMatch
@@ -35,7 +43,7 @@ final class ScreenshotTests: XCTestCase {
         draft.typeText("Notatka z testu #ci")
         app.buttons["noteSave"].tap()
         XCTAssertTrue(app.staticTexts["Notatka z testu #ci"].waitForExistence(timeout: 5))
-        snap("6-nowa-notatka")
+        snap("9-nowa-notatka")
     }
 
     private func snap(_ name: String) {

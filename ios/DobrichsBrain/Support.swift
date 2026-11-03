@@ -138,6 +138,18 @@ enum DemoData {
             context.insert(WorkEntry(day: day, start: at(offset, late ? 14 : 7), end: at(offset, late ? 22 : 15, 30), breakMinutes: 30))
         }
 
+        // habits: done-pattern over the last 40 days (index 0 = today)
+        let habits: [(String, String, (Int) -> Bool)] = [
+            ("Siłownia", "💪", { $0 % 7 == 1 || $0 % 7 == 3 || $0 % 7 == 5 }),
+            ("Woda 2 l", "💧", { $0 >= 1 && $0 <= 12 || $0 >= 15 }),
+            ("Czytanie 10 min", "📚", { $0 % 3 != 2 }),
+            ("Bez papierosów", "🚭", { $0 <= 20 }),
+        ]
+        for (i, h) in habits.enumerated() {
+            let days = (0..<40).filter(h.2).map { Habit.key(at(-$0, 12)) }
+            context.insert(Habit(name: h.0, icon: h.1, order: i, reminderMinutes: i == 1 ? 9 * 60 : nil, doneDays: days))
+        }
+
         UserDefaults.standard.set(168.0, forKey: "monthlyTarget")
         UserDefaults.standard.set(32.5, forKey: "hourlyRate")
         UserDefaults.standard.set(now.addingTimeInterval(-2 * 3600 - 15 * 60).timeIntervalSince1970, forKey: "shiftStart")
