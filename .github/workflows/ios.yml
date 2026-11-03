@@ -1,0 +1,93 @@
+name: iOS app
+
+on:
+  push:
+    branches: [main]
+    paths: ['ios/**', '.github/workflows/ios.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ios-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: macos-15
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate Xcode project
+        working-directory: ios
+        run: |
+          brew install xcodegen
+          xcodegen generate
+
+      - name: Pick and boot an iPhone simulator
+        run: |
+          UDID=$(python3 - <<'EOF'
+          import json, re, subprocess
+          devs = json.loads(subprocess.check_output(['xcrun', 'simctl', 'list', 'devices', 'available', '-j']))['devices']
+          best = None
+          for runtime, items in devs.items():
+              m = re.search(r'iOS-(\d+)-(\d+)', runtime)
+              if not m:
+                  continue
+              ver = (int(m.group(1)), int(m.group(2)))
+              for d in items:
+                  if re.fullmatch(r'iPhone \d+( Pro)?', d['name']):
+                      key = (ver, 'Pro' not in d['name'])
+                      if best is None or key > best[0]:
+                          best = (key, d['udid'], d['name'], ver)
+          print(best[1])
+          EOF
+          )
+          echo "UDID=$UDID" >> "$GITHUB_ENV"
+          xcrun simctl boot "$UDID" || true
+          xcrun simctl bootstatus "$UDID" -b
+          xcrun simctl status_bar "$UDID" override --time 9:41 --batteryState charged --batteryLevel 100 --cellularBars 4 --wifiBars 3
+          mkdir -p shots
+
+      - name: Build, run UI test, take screenshots
+        working-directory: ios
+        env:
+          TEST_RUNNER_SCREENSHOT_DIR: ${{ github.workspace }}/shots
+        run: |
+          xcrun simctl io "$UDID" recordVideo --codec h264 --force ../shots/demo.mp4 &
+          REC=$!
+          set +e
+          xcodebuild test -project DobrichsBrain.xcodeproj -scheme DobrichsBrain \
+            -destination "id=$UDID" CODE_SIGNING_ALLOWED=NO > ../build.log 2>&1
+          STATUS=$?
+          set -e
+          kill -INT $REC; sleep 3
+          if [ $STATUS -ne 0 ]; then
+            echo "::group::Errors"; grep -E "error:|failed|XCTAssert" ../build.log | head -60; echo "::endgroup::"
+            tail -80 ../build.log
+            exit $STATUS
+          fi
+          grep -E "Test Suite|Executed" ../build.log | tail -5
+
+      - name: Upload screenshots, video and log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-preview
+          path: |
+            shots
+            build.log
+
+      - name: Commit screenshots and Xcode project
+        if: github.event_name == 'push'
+        run: |
+          rm -rf ios/screenshots && mkdir -p ios/screenshots && cp shots/*.png ios/screenshots/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ios/screenshots ios/DobrichsBrain.xcodeproj
+          git diff --cached --quiet && exit 0
+          git commit -m "iOS: screenshots + Xcode project"
+          git pull --rebase -q origin main
+          git push
