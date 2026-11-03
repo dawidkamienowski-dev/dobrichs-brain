@@ -141,11 +141,11 @@
 				};
 			};
 			buildConfigurationList = 05D9C9A9A96D4B5B010F9BE7 /* Build configuration list for PBXProject "DobrichsBrain" */;
-			developmentRegion = en;
+			developmentRegion = pl;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				Base,
-				en,
+				pl,
 			);
 			mainGroup = 53970EB941A85F3C749DE6B6;
 			minimizedProjectReferenceProxies = 1;
