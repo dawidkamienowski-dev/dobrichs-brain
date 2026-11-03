@@ -7,7 +7,8 @@ final class ScreenshotTests: XCTestCase {
 
     override func setUp() {
         continueAfterFailure = false
-        app.launchArguments = ["-demo"]
+        // Polish formatting like on a Polish iPhone (the CI simulator is en_US)
+        app.launchArguments = ["-demo", "-AppleLanguages", "(pl)", "-AppleLocale", "pl_PL"]
         app.launch()
     }
 

@@ -3,7 +3,7 @@ import SwiftUI
 
 struct NotesView: View {
     @Environment(\.modelContext) private var context
-    @Query(sort: \Note.updated, order: .reverse) private var notes: [Note]
+    @Query(sort: \Note.updatedAt, order: .reverse) private var notes: [Note]
     @State private var draft = ""
     @State private var search = ""
     @State private var tag: String?
@@ -20,7 +20,7 @@ struct NotesView: View {
                 let text = n.text.lowercased()
                 return (tag == nil || Tags.of(n.text).contains(tag!)) && words.allSatisfy { text.contains($0) }
             }
-            .sorted { a, b in a.pinned != b.pinned ? a.pinned : a.updated > b.updated }
+            .sorted { a, b in a.pinned != b.pinned ? a.pinned : a.updatedAt > b.updatedAt }
     }
 
     var body: some View {
@@ -98,7 +98,7 @@ private struct NoteRow: View {
                 }
                 Text(note.text)
             }
-            Text(note.updated, format: .dateTime.day().month().hour().minute())
+            Text(note.updatedAt, format: .dateTime.day().month().hour().minute())
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }
@@ -119,7 +119,7 @@ private struct NoteEditor: View {
                 .toolbar {
                     ToolbarItem(placement: .confirmationAction) {
                         Button("Gotowe") {
-                            note.updated = .now
+                            note.updatedAt = .now
                             dismiss()
                         }
                     }

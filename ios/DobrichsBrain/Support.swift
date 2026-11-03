@@ -83,7 +83,7 @@ struct WebBackup: Decodable {
     func importInto(_ context: ModelContext) -> String {
         for n in notes {
             context.insert(Note(text: n.text, pinned: n.pinned ?? false,
-                                created: Self.iso(n.created) ?? .now, updated: Self.iso(n.updated) ?? .now))
+                                createdAt: Self.iso(n.created) ?? .now, updatedAt: Self.iso(n.updated) ?? .now))
         }
         for t in tasks {
             let item = TaskItem(title: t.title, due: Self.iso(t.due), done: t.done ?? false,
@@ -120,8 +120,8 @@ enum DemoData {
         }
 
         context.insert(Note(text: "Pomysł na skrypt MTA: system pracy kuriera #mta #pomysly", pinned: true))
-        context.insert(Note(text: "Kod do bramy: 4521 #dom", updated: now.addingTimeInterval(-3600)))
-        context.insert(Note(text: "Kupić prezent dla mamy na urodziny – perfumy? #prezenty", updated: now.addingTimeInterval(-86_400)))
+        context.insert(Note(text: "Kod do bramy: 4521 #dom", updatedAt: now.addingTimeInterval(-3600)))
+        context.insert(Note(text: "Kupić prezent dla mamy na urodziny – perfumy? #prezenty", updatedAt: now.addingTimeInterval(-86_400)))
 
         context.insert(TaskItem(title: "Zapłacić za serwer", due: at(-1, 10)))
         context.insert(TaskItem(title: "Oddzwonić do szefa", due: at(0, 23, 30)))

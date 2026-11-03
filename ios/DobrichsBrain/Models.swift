@@ -5,14 +5,15 @@ import SwiftData
 final class Note {
     var text: String
     var pinned: Bool
-    var created: Date
-    var updated: Date
+    // not "updated": that name clashes with Core Data's NSManagedObject.isUpdated
+    var createdAt: Date
+    var updatedAt: Date
 
-    init(text: String, pinned: Bool = false, created: Date = .now, updated: Date = .now) {
+    init(text: String, pinned: Bool = false, createdAt: Date = .now, updatedAt: Date = .now) {
         self.text = text
         self.pinned = pinned
-        self.created = created
-        self.updated = updated
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
     }
 }
 
