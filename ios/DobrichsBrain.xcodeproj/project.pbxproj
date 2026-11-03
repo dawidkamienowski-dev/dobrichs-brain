@@ -16,6 +16,7 @@
 		962C7CC1282790F9B90B1890 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = E790749EDA17AB547EFE1749 /* Models.swift */; };
 		C3ED3FE29A2FA938D8AE972D /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5226750DE4D6A5A667A49A /* SettingsView.swift */; };
 		E2162916DA39ACAE14E76C44 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6226B45D9F8AFA1FE7486392 /* TasksView.swift */; };
+		F6FB1251BD86761415E18C34 /* HabitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 245B81D92F23DD3FFDAEBC8D /* HabitsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,7 @@
 /* Begin PBXFileReference section */
 		0AF46D3AE90B9C8E03401660 /* WorkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkView.swift; sourceTree = "<group>"; };
 		1AEFFAC7246A44CB8E53E7BA /* DobrichsBrainUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = DobrichsBrainUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		245B81D92F23DD3FFDAEBC8D /* HabitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsView.swift; sourceTree = "<group>"; };
 		2A5226750DE4D6A5A667A49A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		6226B45D9F8AFA1FE7486392 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
 		792A3E3029D888CC316AC987 /* ScreenshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotTests.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 			children = (
 				E5C6F90F72429C915A4E43E8 /* App.swift */,
 				82C95437DFCAFF7D8CC09694 /* Assets.xcassets */,
+				245B81D92F23DD3FFDAEBC8D /* HabitsView.swift */,
 				E790749EDA17AB547EFE1749 /* Models.swift */,
 				928F73D0038C95F7701A1842 /* NotesView.swift */,
 				2A5226750DE4D6A5A667A49A /* SettingsView.swift */,
@@ -177,6 +180,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F14025647CA62F509521DCD /* App.swift in Sources */,
+				F6FB1251BD86761415E18C34 /* HabitsView.swift in Sources */,
 				962C7CC1282790F9B90B1890 /* Models.swift in Sources */,
 				2F09BB200B4ABB9AB8731230 /* NotesView.swift in Sources */,
 				C3ED3FE29A2FA938D8AE972D /* SettingsView.swift in Sources */,
